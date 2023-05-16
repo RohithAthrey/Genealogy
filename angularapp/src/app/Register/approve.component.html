@@ -1,0 +1,30 @@
+<div class="w3-panel">
+  <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Approval</div>
+  <div class="w3-panel">
+    <div class="w3-row-padding">
+      <div class="w3-row">
+        <h5>List of Registration Requests</h5>
+        <table class="w3-table-all w3-striped w3-border">
+          <thead>
+            <tr>
+              <th class="w3-padding-16">Full Name</th>
+              <th class="w3-padding-16">Requested Clan</th>
+            </tr>
+          </thead>
+          <tbody class="w3-striped w3-white" *ngFor="let person of registerService.allPersonStatus">
+            <tr class="w3-striped w3-white">
+              <td>{{person.fullName}}</td>
+              <td>{{person.clanName}}</td>
+              <td>
+                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanRequestId)">Approve</button>
+              </td>
+              <td>
+                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanRequestId)">Reject</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

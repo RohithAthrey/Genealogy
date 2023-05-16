@@ -1,0 +1,108 @@
+<div class="w3-panel">
+  <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Register</div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> First Name <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="firstName" name="First Name" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> Middle Name <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="middleName" name=" Middle Name" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> Last Name <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="lastName" name="Last Name" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> DOB (MM/YY)<label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="birthDate" name="DOB" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Address<label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" [(ngModel)]="address" name="Address" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>City<label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" [(ngModel)]="city" name="City" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Telephone</label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" (ngModel)="telephone" name="Telephone" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Gender<label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <select (change)="genderValueChanged($event)">
+        <option *ngFor="let gender of registerService.allGenders">{{gender.genderValue}}</option>
+      </select>
+
+      <!--<select [(ngModel)]="gender" name="gender" id="gender">
+        <option *ngFor="let gender of registerService.allGenders" [ngValue]="gender.genderId">{{gender.genderValue}}</option>
+      </select>-->
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Email</label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="email" name="Email" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Clan<label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <select (change)="clanValueChanged($event)">
+        <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
+      </select>
+      <!--<select name="clan" id='ddlclan' #ddlclan (change)="clanValueChanged($event)" [(ngModel)]="selClan">
+        <option *ngFor="let clan of registerService.allClans" [value]="clan.clanId">{{clan.name}}</option>
+      </select>-->
+
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16" *ngIf="showFailMsg">
+    <span class="w3-col s12">
+      <label class="w3-red">{{failMsg}}</label>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16" *ngIf="showSuccessMsg">
+    <span class="w3-col s12">
+      <label class="w3-green">{{successMsg}}</label>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <button type="submit" class="w3-button w3-block w3-black" (click)="registerPerson()">Send</button>
+  </div>
+</div>

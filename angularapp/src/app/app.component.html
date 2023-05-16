@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>W3.CSS Template</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+  <!-- Links (sit on top) -->
+  <div class="w3-top">
+    <div class="w3-row w3-large w3-light-grey">
+      <div class="w3-col s3">
+        <a href="#home" class="w3-button w3-block" (click)="openHomeForm()">
+          <span>
+            <i class="fa fa-home w3-xlarge"></i>
+            <span> HOME</span>
+          </span>
+        </a>
+      </div>
+      <div class="w3-col s3">
+        <a href="#about" class="w3-button w3-block" (click)="openAboutForm()">
+          <span>
+            <i class="fa fa-id-card w3-xlarge"></i>
+            <span> About</span>
+          </span>
+        </a>
+      </div>
+      <div class="w3-col s3 w3-dropdown-hover w3-hide-small">
+        <button class="w3-button w3-block" title="Notifications" onmouseenter="document.getElementById('dropdown-content').style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.contains(event.relatedTarget))) { document.getElementById('dropdown-content').style.display='none'; }">
+          <span>
+            <i class="fa fa-pencil-square-o w3-xlarge"></i>
+            <span> Registration <i class="fa fa-caret-down"></i></span>
+          </span>
+        </button>
+        <div class="w3-dropdown-content w3-card-4 w3-bar-block w3-block" id="dropdown-content" style="display: none" onmouseenter="this.style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.parentNode.contains(event.relatedTarget))) { this.style.display='none'; }">
+          <a href="#register" class="w3-bar-item w3-button" (click)="openRequestForm()">Request Registration</a>
+          <a href="#approve" class="w3-bar-item w3-button" (click)="openApproveForm()">Verify Requests</a>
+        </div>
+      </div>
+      <div class="w3-col s3">
+        <a href="#login" class="w3-button w3-block" (click)="openLoginForm()">
+          <span>
+            <i class="fa fa-user w3-xlarge"></i>
+            <span> Login</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="w3-content" style="max-width:1100px;margin-top:80px;margin-bottom:80px">
+
+    <!--Home Page-->
+    <div *ngIf="isOpenHomeForm" class="w3-content" id="home">
+      <div class="w3-panel">
+        <h1><b>Buganda Kingdom</b></h1>
+      </div>
+
+      <!-- Slideshow -->
+      <div class="w3-container">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="w3-display-container carousel-inner" role="listbox">
+            <img src="{{ getSlide() }}" alt="slide" />
+            <div class="w3-display-middle w3-container w3-padding-32">
+              <div class="w3-white w3-padding-large w3-animate-bottom">Welcome!!! Enter your description here...</div>
+            </div>
+          </div>
+          <div class="w3-left">
+            <button class="w3-button w3-black w3-padding-large" (click)="getPrev()">Prev</button>
+            <button class="w3-button w3-black w3-padding-large" (click)="getNext()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Form -->
+    <div class="w3-row-padding" id="about">
+      <div *ngIf="isOpenAboutForm">ABOUT To Be Implemented</div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="w3-row-padding" id="register">
+      <register *ngIf="isOpenRegisterForm"></register>
+    </div>
+    <!-- Approve Form -->
+    <div class="w3-row-padding" id="approve">
+      <approve *ngIf="isOpenApproveForm"></approve>
+    </div>
+
+    <!-- Login Form -->
+    <div class="w3-row-padding" id="login">
+      <div *ngIf="isOpenLoginForm">LOGIN To Be Implemented</div>
+    </div>
+
+
+  </div>
+
+  <!-- Footer -->
+
+  <footer class="w3-container w3-padding-32 w3-light-grey w3-center">
+    <h4>Footer</h4>
+    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="w3-xlarge w3-section">
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-snapchat w3-hover-opacity"></i>
+      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+      <i class="fa fa-twitter w3-hover-opacity"></i>
+      <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+  </footer>
+</body>
+</html>
+
