@@ -34,10 +34,11 @@ export class ApproveComponent implements OnInit {
       })
   }
 
-  updateRegistration(typeId: number, personClanRequestId: number) {
+  updateRegistration(typeId: number, personClanRequestId: number, personId: number) {
     this.registerTypeId = typeId;
     var register = {} as UpdatedRequestDTO;
     register.personClanRequestId = personClanRequestId;
+    register.personId = personId;
     register.requestTypeId = typeId;
     register.lastUpdatedBy = "Kenneth R Odombe";
 
@@ -55,18 +56,22 @@ export class ApproveComponent implements OnInit {
           //this.postService.allPosts[updatedPostIndex].content = updatedPostFromServer.content;
           //this.postService.allPosts[updatedPostIndex].published = updatedPostFromServer.published;
 
-          console.log('Successfully updated the post! Response from server:');
+          console.log('Successfully updated the post! Response from server');
           console.log(response);
 
           this.registerTypeId = 1;
           this.getToBeApprovedRegistrations();
-          console.log('Successfully registered! Response from server:');
+          console.log('Successfully registered! Response from server');
         },
         error: (error: HttpErrorResponse) => {
           console.log(`Failed to register! Response from server: "HTTP statuscode: ${error.status}: ${error.error}"`);
         },
       });
-  }  
+  }
+
+  createProfilePicPath(serverPath: string) {
+    return `https://localhost:7065/${serverPath}`; 
+  }
 
 
   

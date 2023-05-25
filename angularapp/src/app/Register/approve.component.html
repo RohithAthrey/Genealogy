@@ -7,19 +7,21 @@
         <table class="w3-table-all w3-striped w3-border">
           <thead>
             <tr>
+              <th class="w3-padding-16">Profile</th>
               <th class="w3-padding-16">Full Name</th>
               <th class="w3-padding-16">Requested Clan</th>
             </tr>
           </thead>
           <tbody class="w3-striped w3-white" *ngFor="let person of registerService.allPersonStatus">
             <tr class="w3-striped w3-white">
+              <td><img [src]="createProfilePicPath(person.profilePicPath)" alt="profile picture" style="width:60px; height:60px;"></td>
               <td>{{person.fullName}}</td>
               <td>{{person.clanName}}</td>
               <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanRequestId)">Approve</button>
+                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanRequestId, person.personId)">Approve</button>
               </td>
               <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanRequestId)">Reject</button>
+                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanRequestId, person.personId)">Reject</button>
               </td>
             </tr>
           </tbody>

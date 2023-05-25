@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Net.Http.Headers;
 using webapi.Data;
 using webapi.Data.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -40,6 +42,7 @@ public static class RegistrationEndpoints
                 {
                     PersonId = request.PersonID,
                     FullName = request.Person.FirstName + " " + request.Person.MiddleName + " " + request.Person.LastName,
+                    ProfilePicPath = request.Person.ProfilePicPath,
                     ClanName = request.Clan.Name,
                     PersonClanRequestId = request.PersonClanRequestID
                 };
@@ -60,57 +63,6 @@ public static class RegistrationEndpoints
             {
                 return Results.NotFound();
             }
-
-
-            //if (allRequests.Count > 0)
-            //{
-            //    var prs = new List<PersonStatus>
-            //    {
-            //        PersonId = allRequests.
-            //    }
-            //}
-            //PersonStatus pc = new PersonStatus()
-            //{
-            //    PersonId = 1,
-            //    FullName = "Rohith R Athrey",
-            //    ClanName = "Njovu"
-            //};
-            //var prs = new List<PersonStatus>();
-            //prs.Add(pc);
-            //pc = new PersonStatus()
-            //{
-            //    PersonId = 2,
-            //    FullName = "Nisha R Athrey",
-            //    ClanName = "Njovu"
-            //};
-            //prs.Add(pc);
-
-            //var dto = new PersonRegisterStatusDTO()
-            //{
-            //    RequestTypeId = 1,
-            //    PersonStatuses = prs
-            //};
-
-            //if (dto != null)
-            //{
-            //    return Results.Ok(dto);
-            //}
-            //else
-            //{
-            //    return Results.NotFound();
-            //}
-
-
-            //Person? person = await dbContext.PersonClanRequest.FindAsync(Id);
-
-            //if (post != null)
-            //{
-            //    return Results.Ok(post);
-            //}
-            //else
-            //{
-            //    return Results.NotFound();
-            //}
         });
 
         app.MapPost("/register", async (RegistrationDTO registrationDTO, AppDbContext dbContext) =>
@@ -143,8 +95,9 @@ public static class RegistrationEndpoints
                 GenderID = registrationDTO.GenderID,
                 Email = registrationDTO.Email,
                 LoginId = registrationDTO.LoginId,
-                Password = "1234",
-                IsActive = true,
+                Password = registrationDTO.Password,
+                ProfilePicPath = registrationDTO.ProfilePicPath,
+                IsActive = false,
                 IsUser = true,
                 LastUpdatedDate = DateTime.Now,
                 LastUpdatedBy = registrationDTO.FirstName + " " + registrationDTO.MiddleName + " " + registrationDTO.LastName,
@@ -165,24 +118,34 @@ public static class RegistrationEndpoints
 
         app.MapPut("/register/{Id}", async (int Id, UpdatedRequestDTO updatedRequestDTO, AppDbContext dbContext) =>
         {
-            var requestToUpdate = await dbContext.PersonClanRequest.FindAsync(Id);
-
-            if (requestToUpdate != null)
+            // first update the person and make the person active (IsActive flag in the db)
+            var person = await dbContext.Person.FindAsync(updatedRequestDTO.PersonId);
+            if (person != null)
             {
-                requestToUpdate.RequestTypeID = updatedRequestDTO.RequestTypeId;
-                requestToUpdate.LastUpdatedBy = updatedRequestDTO.LastUpdatedBy;
-                requestToUpdate.LastUpdatedDate = DateTime.Now;
-
-                bool success = await dbContext.SaveChangesAsync() > 0;
-
-                if (success)
+                person.IsActive = true;
+                // next update the PersonClanRequest table to set the flag to approved
+                var requestToUpdate = await dbContext.PersonClanRequest.FindAsync(Id);
+                if (requestToUpdate != null)
                 {
-                    return Results.Ok(updatedRequestDTO);
+                    requestToUpdate.RequestTypeID = updatedRequestDTO.RequestTypeId;
+                    requestToUpdate.LastUpdatedBy = updatedRequestDTO.LastUpdatedBy;
+                    requestToUpdate.LastUpdatedDate = DateTime.Now;
+
+                    bool success = await dbContext.SaveChangesAsync() > 0;
+
+                    if (success)
+                    {
+                        return Results.Ok(updatedRequestDTO);
+                    }
+                    else
+                    {
+                        // 500 = internal server error.
+                        return Results.StatusCode(500);
+                    }
                 }
                 else
                 {
-                    // 500 = internal server error.
-                    return Results.StatusCode(500);
+                    return Results.NotFound();
                 }
             }
             else
@@ -190,6 +153,37 @@ public static class RegistrationEndpoints
                 return Results.NotFound();
             }
         });
+
+        app.MapPost("/register/upload", async (IFormFile file) =>
+        {
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            try
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var profilePicPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    return Results.Ok(new { profilePicPath });
+                }
+                else
+                {
+                    // 500 = internal server error.
+                    return Results.BadRequest();
+                }
+            }
+            catch
+            {
+                // 500 = internal server error.
+                return Results.StatusCode(500);
+            }
+        });
+
 
         //app.MapDelete("/posts/{Id}", async (int Id, AppDbContext dbContext) =>
         //{

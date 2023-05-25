@@ -12,6 +12,8 @@
         public int GenderID { get; set; }
         public string Email { get; set; }
         public string LoginId { get; set; }
+        public string Password { get; set; }
+        public string ProfilePicPath { get; set; }
         public int ClanID { get; set; }
 
     }

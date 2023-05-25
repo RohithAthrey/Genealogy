@@ -2,7 +2,7 @@
   <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Register</div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> First Name <label style="color: red">*</label></label>
+      <label> First Name: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="firstName" name="First Name" required>
@@ -10,7 +10,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> Middle Name <label style="color: red">*</label></label>
+      <label> Middle Name: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="middleName" name=" Middle Name" required>
@@ -18,7 +18,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> Last Name <label style="color: red">*</label></label>
+      <label> Last Name: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="lastName" name="Last Name" required>
@@ -26,7 +26,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> DOB (MM/YY)<label style="color: red">*</label></label>
+      <label> DOB (MM/YY): <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="birthDate" name="DOB" required>
@@ -34,7 +34,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Address<label style="color: red">*</label></label>
+      <label>Address: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" [(ngModel)]="address" name="Address" required>
@@ -42,7 +42,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>City<label style="color: red">*</label></label>
+      <label>City: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" [(ngModel)]="city" name="City" required>
@@ -50,7 +50,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Telephone</label>
+      <label>Telephone: </label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" (ngModel)="telephone" name="Telephone" required>
@@ -58,21 +58,17 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Gender<label style="color: red">*</label></label>
+      <label>Gender: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <select (change)="genderValueChanged($event)">
         <option *ngFor="let gender of registerService.allGenders">{{gender.genderValue}}</option>
       </select>
-
-      <!--<select [(ngModel)]="gender" name="gender" id="gender">
-        <option *ngFor="let gender of registerService.allGenders" [ngValue]="gender.genderId">{{gender.genderValue}}</option>
-      </select>-->
     </span>
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Email</label>
+      <label>Email: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="email" name="Email" required>
@@ -80,16 +76,42 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Clan<label style="color: red">*</label></label>
+      <label>Login ID: <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="loginId" name="LoginId" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Password: <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="password" [(ngModel)]="password" name="Password" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Clan: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
       <select (change)="clanValueChanged($event)">
         <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
       </select>
-      <!--<select name="clan" id='ddlclan' #ddlclan (change)="clanValueChanged($event)" [(ngModel)]="selClan">
-        <option *ngFor="let clan of registerService.allClans" [value]="clan.clanId">{{clan.name}}</option>
-      </select>-->
-
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+      <button type="button" class="w3-button w3-block w3-green" (click)="file.click()">Upload Profile Picture</button>
+    </span>
+    <span class="w3-col s10">
+      <span class="upload" *ngIf="imgProgress > 0">
+        {{imgProgress}}%
+      </span>
+      <span class="upload" *ngIf="imgMsg">
+        {{imgMsg}}
+      </span>
     </span>
   </div>
   <div class="w3-section w3-padding-16" *ngIf="showFailMsg">

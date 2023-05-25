@@ -3,6 +3,7 @@
     public class UpdatedRequestDTO
     {
         public int PersonClanRequestId { get; set; }
+        public int PersonId { get; set; }
         public int RequestTypeId { get; set; }
         public string LastUpdatedBy { get; set; }
     }

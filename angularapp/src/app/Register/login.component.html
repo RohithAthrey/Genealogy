@@ -1,0 +1,32 @@
+<div class="w3-panel">
+  <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Login</div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> Username <label style="color: red">*</label> </label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="username" name="Username" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Password <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input type="password" name="password" class="w3-input w3-border w3-hover-border-black" style="width: 100%;" [(ngModel)]="password" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <button type="submit" class="w3-button w3-block w3-black" (click)="loginPerson()">Send</button>
+  </div>
+  <div class="w3-section w3-padding-16" *ngIf="showFailure">
+    <span class="w3-col s12">
+      <label class="w3-red">{{loginFailure}}</label>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16" *ngIf="showSuccess">
+    <span class="w3-col s12">
+      <label class="w3-green">{{loginSuccess}}</label>
+    </span>
+  </div>
+</div>

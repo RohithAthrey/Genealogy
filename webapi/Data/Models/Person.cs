@@ -38,6 +38,9 @@ public class Person
     public string LoginId { get; set; }
     [Column(TypeName = "varchar(128)")]
     public string? Password { get; set; }
+    [Column(TypeName = "varchar(128)")]
+    public string? ProfilePicPath { get; set; }
+
     [Required]
     public bool IsActive { get; set; }
     [Required]

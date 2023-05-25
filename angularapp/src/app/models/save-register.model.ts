@@ -9,10 +9,13 @@ export interface RegistrationDTO {
   genderId: number;
   email: string;
   loginId: string;
+  password: string;
+  profilePicPath: string;
   clanId: number;
 }
 export interface UpdatedRequestDTO {
   personClanRequestId: number;
+  personId: number;
   requestTypeId: number;
   lastUpdatedBy: string;
 }
