@@ -7,10 +7,15 @@ export interface RegistrationDTO {
   city: string;
   telephone?: string;
   genderId: number;
-  email: string;
+  email?: string;
   loginId: string;
   password: string;
   profilePicPath: string;
+  registerPara: string;
+  grandparents: string;
+  parents: string;
+  greatGrandparents: string;
+  clanHouseId: number;
   clanId: number;
 }
 export interface UpdatedRequestDTO {

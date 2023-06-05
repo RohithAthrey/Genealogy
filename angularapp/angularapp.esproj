@@ -14,4 +14,10 @@
     <Folder Include="src\app\constants\" />
     <Folder Include="src\app\services\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\Register\profile.component.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Include="src\app\Register\profile.component.ts" />
+  </ItemGroup>
 </Project>

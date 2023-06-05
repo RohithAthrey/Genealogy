@@ -7,12 +7,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { RegisterComponent } from './Register/register.component';
 import { ApproveComponent } from './Register/approve.component';
+import { LoginComponent } from './Register/login.component';
+import { ProfileComponent } from './Register/profile.component';
+import { myClanComponent } from './Register/myClan.component';
+import { familyTreeComponent } from './Register/familyTree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    ApproveComponent
+    ApproveComponent,
+    LoginComponent,
+    ProfileComponent,
+    myClanComponent,
+    familyTreeComponent
   ],
   imports: [
     BrowserModule,
@@ -22,8 +30,11 @@ import { ApproveComponent } from './Register/approve.component';
   ],
   exports: [
     RegisterComponent,
-    ApproveComponent
-
+    ApproveComponent,
+    LoginComponent,
+    ProfileComponent,
+    myClanComponent,
+    familyTreeComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

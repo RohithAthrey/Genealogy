@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RegisterService } from '../services/register.service';
 import APIEndpoints from '../constants/APIEndpoints';
 import HTTP_OPTIONS from '../constants/HttpOptions';
 import { PersonRegisterStatusDTO } from '../models/approve-register.model';
 import { UpdatedRequestDTO } from '../models/save-register.model';
-import { LoginDTO } from '../models/login-register.model';
+import { LoginDTO, UserRoleDTO } from '../models/login-register.model';
 
 @Component({
   selector: 'login',
@@ -14,6 +14,7 @@ import { LoginDTO } from '../models/login-register.model';
 })
 
 export class LoginComponent implements OnInit {
+  @Output() roleId = new EventEmitter<number>();
   username: string;
   password: string;
   loginSuccess: string;
@@ -45,8 +46,29 @@ export class LoginComponent implements OnInit {
         next: (registeredPersonFromServer) => {
           this.showSuccess = true;
           this.loginSuccess = "Successfully logged in:";
+          this.registerService.loggedinPersonId = parseInt(registeredPersonFromServer.toString(), 10);
           console.log('Successfully registered! Response from server:');
           console.log(registeredPersonFromServer);
+          this.httpClient.get<UserRoleDTO>(`${APIEndpoints.GET_ROLE_MODULES_BY_USERID}/${registeredPersonFromServer}`)
+            .subscribe({
+              next: (userRoleFromServer) => {
+                this.registerService.userRoleDTO = userRoleFromServer;
+                console.log(this.registerService.userRoleDTO.roleId);
+                this.showSuccess = true;
+                this.loginSuccess = "ffsffesoifesf";
+                console.log('Successfully fetched user role modules! Response from server:');
+                console.log(userRoleFromServer);
+                this.registerService.isOpenHomeForm = true;
+                this.registerService.isOpenLoginForm = false;
+
+              //  this.roleId.emit(this.registerService.userRoleDTO.roleId);
+              },
+              error: (error: HttpErrorResponse) => {
+                this.showFailure = true;
+                this.loginFailure = "Failedn:";
+                console.log(`Failed tor! Response from server: "HTTP statuscode: ${error.status}: ${error.error}"`);
+              }
+            });
         },
         error: (error: HttpErrorResponse) => {
           this.showFailure = true;
@@ -54,6 +76,7 @@ export class LoginComponent implements OnInit {
           console.log(`Failed to register! Response from server: "HTTP statuscode: ${error.status}: ${error.error}"`);
         },
       });
+    
   }
 
 

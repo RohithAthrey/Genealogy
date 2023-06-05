@@ -15,10 +15,20 @@ import { UpdatedRequestDTO } from '../models/save-register.model';
 export class ApproveComponent implements OnInit {
   registerTypeId = 1;
   updateSuccessful = false;
-    requestService: any;
+  requestService: any;
+  selectedAboutMe: string;
+  isAboutMeModalOpen: boolean;
+  selectedGrandparents: string;
+  selectedParents: string;
+  selectedGreatGrandparents: string;
 
   constructor(private httpClient: HttpClient, public registerService: RegisterService) {
-   
+    this.selectedAboutMe = '';
+    this.isAboutMeModalOpen = false;
+    this.selectedGrandparents='';
+    this.selectedParents='';
+    this.selectedGreatGrandparents='';
+    
   }
 
   ngOnInit() {
@@ -34,16 +44,16 @@ export class ApproveComponent implements OnInit {
       })
   }
 
-  updateRegistration(typeId: number, personClanRequestId: number, personId: number) {
+  updateRegistration(typeId: number, personClanHouseRequestId: number, personId: number) {
     this.registerTypeId = typeId;
     var register = {} as UpdatedRequestDTO;
-    register.personClanRequestId = personClanRequestId;
+    register.personClanRequestId = personClanHouseRequestId;
     register.personId = personId;
     register.requestTypeId = typeId;
     register.lastUpdatedBy = "Kenneth R Odombe";
 
     this.httpClient
-      .put(`${APIEndpoints.UPDATE_REGISTRATION}/${personClanRequestId}`, register, HTTP_OPTIONS)
+      .put(`${APIEndpoints.UPDATE_REGISTRATION}/${personClanHouseRequestId}`, register, HTTP_OPTIONS)
       .subscribe({
         next: (response) => {
           this.updateSuccessful = true;
@@ -71,6 +81,40 @@ export class ApproveComponent implements OnInit {
 
   createProfilePicPath(serverPath: string) {
     return `https://localhost:7065/${serverPath}`; 
+  }
+  openAboutMeModal(person: any) {
+    if (!person.registerPara || person.registerPara.trim().length < 2) {
+      this.selectedAboutMe = 'No About Me Provided';
+    }
+    else {
+      this.selectedAboutMe = person.registerPara;
+    }
+    if (!person.grandparents || person.grandparents.trim().length < 2) {
+      this.selectedGrandparents = 'No About Me Provided';
+    }
+    else {
+      this.selectedGrandparents = person.grandparents;
+    }
+    if (!person.parents || person.parents.trim().length < 2) {
+      this.selectedParents = 'No About Me Provided';
+    }
+    else {
+      this.selectedParents = person.parents;
+    }
+    if (!person.greatGrandparents || person.greatGrandparents.trim().length < 2) {
+      this.selectedGreatGrandparents = 'No Great Grandparents Provided';
+    }
+    else {
+      this.selectedGreatGrandparents = person.greatGrandparents;
+    }
+    this.isAboutMeModalOpen = true;
+  }
+  closeAboutMeModal() {
+    this.selectedAboutMe = '';
+    this.selectedGrandparents ='';
+    this.selectedGreatGrandparents = '';
+    this.selectedParents = '';
+    this.isAboutMeModalOpen = false;
   }
 
 

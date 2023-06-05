@@ -15,18 +15,32 @@
           <tbody class="w3-striped w3-white" *ngFor="let person of registerService.allPersonStatus">
             <tr class="w3-striped w3-white">
               <td><img [src]="createProfilePicPath(person.profilePicPath)" alt="profile picture" style="width:60px; height:60px;"></td>
-              <td>{{person.fullName}}</td>
-              <td>{{person.clanName}}</td>
               <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanRequestId, person.personId)">Approve</button>
+                <button class="transparent-button" (click)="openAboutMeModal(person)">{{person.fullName}}</button>
               </td>
+              <td>{{person.clanHouseName}}</td>
               <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanRequestId, person.personId)">Reject</button>
+                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanHouseRequestId, person.personId)">Approve</button>
+              </td> 
+              <td>
+                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanHouseRequestId, person.personId)">Reject</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="aboutMeModal" class="w3-modal" [ngClass]="{'w3-show': isAboutMeModalOpen}">
+  <div class="w3-modal-content">
+    <div class="w3-container">
+      <span class="w3-button w3-display-topright" (click)="closeAboutMeModal()">&times;</span>
+      <p>{{ selectedAboutMe }}</p>
+      <p>Great Grandparent: {{ selectedGreatGrandparents }}</p>
+      <p>Parent: {{ selectedParents }}</p>
+      <p>Grandparent: {{ selectedGrandparents }}</p>
     </div>
   </div>
 </div>

@@ -1,0 +1,39 @@
+<div class="w3-panel">
+  <div class="container" *ngIf="!registerService.isOpenFamilyTree">
+    <img class="image" src='../assets/BogandaPainting.jfif' alt="Big Picture">
+    <div class="small-image">
+      <img src='../assets/BogandaPainting.jfif' alt="Small Picture">
+    </div>
+    <div class="buttons">
+      <button class="button">Male Names</button>
+      <button class="button">Female Names</button>
+      <div class="button-container">
+        <button type="submit" class="side-button" (click)="openFamilyTree2()">My House</button>
+        <div class="dropdown">
+          <button class="side-button">Select Clan</button>
+          <span class="dropdown-content">
+            <select (change)="clanValueChanged($event)">
+              <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
+            </select>
+          </span>
+        </div>
+        <div class="w3-section w3-padding-16">
+          <span class="w3-col s2">
+            <button class="side-button">Clan House: </button>
+          </span>
+          <span class="w3-col s10">
+            <select (change)="updateClanHouseOptions($event)">
+              <option *ngFor="let clanHouse of getFilteredClanHouses()" [value]="clanHouse.clanHouseID" [selected]="clanHouse.clanHouseID === selClanHouse">{{ clanHouse.clanHouseName }}</option>
+            </select>
+          </span>
+        </div>
+        <button class="button" (click)="openFamilyTree()">Go To Selected House</button>
+    </div>
+  </div>
+</div>
+  <!-- Family Tree Form -->
+  <div class="w3-row-padding" id="familyTree">
+    <!--<div *ngIf="registerService.isOpenFamilyTree">Hello World!!!</div>-->
+    <familyTree *ngIf="registerService.isOpenFamilyTree"></familyTree>
+  </div>
+</div>

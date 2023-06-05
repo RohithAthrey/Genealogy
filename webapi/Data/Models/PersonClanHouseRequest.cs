@@ -3,17 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Data.Models;
 
-public class PersonClanRequest
+public class PersonClanHouseRequest
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int PersonClanRequestID { get; set; }
+    public int PersonClanHouseRequestID { get; set; }
     [ForeignKey("Person")]
     [Required]
     public int PersonID { get; set; }
-    [ForeignKey("Clan")]
+    [ForeignKey("ClanHouse")]
     [Required]
-    public int ClanID { get; set; }
+    public int ClanHouseID { get; set; }
     [ForeignKey("RequestType")]
     [Required]
     public int RequestTypeID { get; set; }
@@ -23,6 +23,6 @@ public class PersonClanRequest
     [Column(TypeName = "varchar(128)")]
     public string LastUpdatedBy { get; set; }
     public Person Person { get; set; }
-    public Clan Clan { get; set; }
+    public ClanHouse ClanHouse { get; set; }
     public RequestType RequestType { get; set; }
 }

@@ -31,20 +31,30 @@ public static class RegistrationEndpoints
 
             return Results.Ok(allClans);
         });
+        app.MapGet("/register/getClanHouses", async (AppDbContext dbContext) =>
+        {
+            List<ClanHouse> allClanHouses = await dbContext.ClanHouse.ToListAsync();
+
+            return Results.Ok(allClanHouses);
+        });
 
         app.MapGet("/register/{Id}", async (int Id, AppDbContext dbContext) =>
         {
-            List<PersonClanRequest> allRequests = await dbContext.PersonClanRequest.Include(p => p.Person).Include(c => c.Clan).Where(x => x.RequestTypeID == Id).ToListAsync();
+            List<PersonClanHouseRequest> allRequests = await dbContext.PersonClanHouseRequest.Include(p => p.Person).Include(c => c.ClanHouse).Where(x => x.RequestTypeID == Id).ToListAsync();
             var prs = new List<PersonStatus>();
-            foreach (PersonClanRequest request in allRequests)
+            foreach (PersonClanHouseRequest request in allRequests)
             {
                 var pc = new PersonStatus
                 {
                     PersonId = request.PersonID,
                     FullName = request.Person.FirstName + " " + request.Person.MiddleName + " " + request.Person.LastName,
                     ProfilePicPath = request.Person.ProfilePicPath,
-                    ClanName = request.Clan.Name,
-                    PersonClanRequestId = request.PersonClanRequestID
+                    ClanHouseName = request.ClanHouse.ClanHouseName,
+                    PersonClanHouseRequestId = request.PersonClanHouseRequestID,
+                    RegisterPara = request.Person.RegisterPara,
+                    Grandparents = request.Person.Grandparents,
+                    Parents = request.Person.Parents,
+                    GreatGrandparents = request.Person.GreatGrandparents
                 };
                 prs.Add(pc);
             }
@@ -68,16 +78,16 @@ public static class RegistrationEndpoints
         app.MapPost("/register", async (RegistrationDTO registrationDTO, AppDbContext dbContext) =>
         {
             // We have to insert into the following tables for a registration to be fulfilled
-            // Person, PersonClanRequest
+            // Person, PersonClanHouseRequest
             // Let EF Core auto-increment the ID.
-            PersonClanRequest pcr = new()
+            PersonClanHouseRequest pcr = new()
             {
-                ClanID = registrationDTO.ClanID,
+                ClanHouseID = registrationDTO.ClanHouseID,
                 RequestTypeID = 1, // Requested
                 LastUpdatedDate = DateTime.Now,
                 LastUpdatedBy = registrationDTO.FirstName + " " + registrationDTO.MiddleName + " " + registrationDTO.LastName,
             };
-            var pcrs = new List<PersonClanRequest>
+            var pcrs = new List<PersonClanHouseRequest>
             {
                 pcr
             };
@@ -97,11 +107,15 @@ public static class RegistrationEndpoints
                 LoginId = registrationDTO.LoginId,
                 Password = registrationDTO.Password,
                 ProfilePicPath = registrationDTO.ProfilePicPath,
+                RegisterPara = registrationDTO.RegisterPara,
+                Grandparents = registrationDTO.Grandparents,
+                Parents = registrationDTO.Parents,
+                GreatGrandparents = registrationDTO.GreatGrandparents,
                 IsActive = false,
                 IsUser = true,
                 LastUpdatedDate = DateTime.Now,
                 LastUpdatedBy = registrationDTO.FirstName + " " + registrationDTO.MiddleName + " " + registrationDTO.LastName,
-                PersonClanRequests = pcrs
+                PersonClanHouseRequests = pcrs
             };
             dbContext.Person.Add(person);
             bool success = await dbContext.SaveChangesAsync() > 0;
@@ -118,18 +132,35 @@ public static class RegistrationEndpoints
 
         app.MapPut("/register/{Id}", async (int Id, UpdatedRequestDTO updatedRequestDTO, AppDbContext dbContext) =>
         {
-            // first update the person and make the person active (IsActive flag in the db)
-            var person = await dbContext.Person.FindAsync(updatedRequestDTO.PersonId);
-            if (person != null)
-            {
-                person.IsActive = true;
-                // next update the PersonClanRequest table to set the flag to approved
-                var requestToUpdate = await dbContext.PersonClanRequest.FindAsync(Id);
-                if (requestToUpdate != null)
+        // first update the person and make the person active (IsActive flag in the db)
+        var person = await dbContext.Person.FindAsync(updatedRequestDTO.PersonId);
+        if (person != null)
+        {
+            if (updatedRequestDTO.RequestTypeId == 2)
                 {
-                    requestToUpdate.RequestTypeID = updatedRequestDTO.RequestTypeId;
-                    requestToUpdate.LastUpdatedBy = updatedRequestDTO.LastUpdatedBy;
-                    requestToUpdate.LastUpdatedDate = DateTime.Now;
+                    person.IsActive = true;
+                }
+            // next update the PersonClanHouseRequest table to set the flag to approved
+            var requestToUpdate = await dbContext.PersonClanHouseRequest.FindAsync(Id);
+            if (requestToUpdate != null)
+            {
+                requestToUpdate.RequestTypeID = updatedRequestDTO.RequestTypeId;
+                requestToUpdate.LastUpdatedBy = updatedRequestDTO.LastUpdatedBy;
+                requestToUpdate.LastUpdatedDate = DateTime.Now;
+
+                if (requestToUpdate.RequestTypeID == 2)
+                {
+                    PersonRole personRole = new()
+                    {
+                        PersonID = updatedRequestDTO.PersonId,
+                        RoleID = 2,
+                        IsActive = true,
+                        LastUpdatedDate = DateTime.Now,
+                        LastUpdatedBy = updatedRequestDTO.LastUpdatedBy
+
+                    };
+                        dbContext.PersonRole.Add(personRole);
+                    }
 
                     bool success = await dbContext.SaveChangesAsync() > 0;
 
@@ -184,7 +215,31 @@ public static class RegistrationEndpoints
             }
         });
 
+        app.MapGet("/register/getProfileInfo/{Id}", async (int Id, AppDbContext dbContext) =>
+        {
+            var person = await dbContext.Person.FindAsync(Id);
+            if (person != null)
+            {
+                ProfileScreenDTO userInfo = new()
+                {
+                    About = person.RegisterPara,
+                    Surname = person.LastName,
+                    MiddleName = person.MiddleName,
+                    FirstName = person.FirstName,
+                    Email = person.Email,
+                    Phone = person.Telephone,
+                    ProfilePicPath = person.ProfilePicPath
+                };
+                return Results.Ok(userInfo);
+                }
 
+                else
+                {
+                    // 500 = internal server error.
+                    return Results.StatusCode(500);
+                }
+
+        });
         //app.MapDelete("/posts/{Id}", async (int Id, AppDbContext dbContext) =>
         //{
         //    Post? postToDelete = await dbContext.Posts.FindAsync(Id);

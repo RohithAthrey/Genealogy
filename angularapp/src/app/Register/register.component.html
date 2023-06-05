@@ -2,10 +2,10 @@
   <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Register</div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> First Name: <label style="color: red">*</label></label>
+      <label> Surname: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
-      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="firstName" name="First Name" required>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="lastName" name="Last Name" required>
     </span>
   </div>
   <div class="w3-section w3-padding-16">
@@ -18,15 +18,39 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> Last Name: <label style="color: red">*</label></label>
+      <label> First Name: <label style="color: red">*</label></label>
     </span>
     <span class="w3-col s10">
-      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="lastName" name="Last Name" required>
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="firstName" name="First Name" required>
     </span>
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label> DOB (MM/YY): <label style="color: red">*</label></label>
+      <label> Parent: <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="parents" name="Parents" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> Grandparent: <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="grandparents" name="Grandparents" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> Great Grandparent: </label>
+    </span>
+    <span class="w3-col s10">
+      <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="greatGrandparents" name="Great Grandparents" required>
+    </span>
+  </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label> DOB (MM/YY): </label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="birthDate" name="DOB" required>
@@ -68,7 +92,7 @@
   </div>
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
-      <label>Email: <label style="color: red">*</label></label>
+      <label>Email: </label>
     </span>
     <span class="w3-col s10">
       <input class="w3-input w3-border w3-hover-border-black" style="width:100%;" type="text" [(ngModel)]="email" name="Email" required>
@@ -100,6 +124,31 @@
       </select>
     </span>
   </div>
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>Clan House: <label style="color: red">*</label></label>
+    </span>
+    <span class="w3-col s10">
+      <select (change)="updateClanHouseOptions($event)">
+        <option *ngFor="let clanHouse of getFilteredClanHouses()" [value]="clanHouse.clanHouseID" [selected]="clanHouse.clanHouseID === selClanHouse">{{ clanHouse.clanHouseName }}</option>
+      </select>
+    </span>
+  </div>
+
+
+
+  <div class="w3-section w3-padding-16">
+    <span class="w3-col s2">
+      <label>About Yourself:</label>
+    </span>
+    <span class="w3-col s10">
+      <textarea class="w3-input w3-border w3-hover-border-black" style="width:100%;" [(ngModel)]="registerPara" name="Register Para" required></textarea>
+      <span>{{wordCount(registerPara)}}/150 words</span>
+    </span>
+  </div>
+
+  <br />
+  <br />
   <div class="w3-section w3-padding-16">
     <span class="w3-col s2">
       <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">

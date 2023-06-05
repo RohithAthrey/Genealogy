@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Security.Cryptography.Xml;
 using webapi.Data.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -10,14 +11,21 @@ namespace webapi.Data
         // We use => (expression-bodied members) to avoid nullable reference types errors.
         // Source: https://docs.microsoft.com/en-us/ef/core/miscellaneous/nullable-reference-types#dbcontext-and-dbset.
 
-        //Command to create db migration script
-        //dotnet ef migrations add FirstMigration -o "Data/Migrations"
-        //dotnet ef database update"
+        // Command to create db migration script
+        // you need to be at webapi folder level
+        // dotnet ef migrations add FirstMigration -o "Data/Migrations"
+        // dotnet ef database update
+        // dotnet ef migrations add AddPersonProfilePicPath
+        // dotnet ef database update
         public DbSet<Gender> Gender => Set<Gender>();
         public DbSet<Person> Person => Set<Person>();
         public DbSet<Clan> Clan => Set<Clan>();
         public DbSet<RequestType> RequestType => Set<RequestType>();
-        public DbSet<PersonClanRequest> PersonClanRequest => Set<PersonClanRequest>();
+        public DbSet<ClanHouse> ClanHouse => Set<ClanHouse>();
+        public DbSet<PersonClanHouseRequest> PersonClanHouseRequest => Set<PersonClanHouseRequest>();
+        public DbSet<Role> Role => Set<Role>();
+        public DbSet<PersonRole> PersonRole => Set<PersonRole>();
+        
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -62,6 +70,22 @@ namespace webapi.Data
             };
             modelBuilder.Entity<RequestType>().HasData(reqTypesToSeed);
 
+            var rolesToSeed = new Role[2];
+            rolesToSeed[0] = new()
+            {
+                RoleID = 1,
+                RoleName = "Admin",
+                RoleDesc = "Admin role"
+            };
+            rolesToSeed[1] = new()
+            {
+                RoleID = 2,
+                RoleName = "User",
+                RoleDesc = "User role"
+            };
+            
+            modelBuilder.Entity<Role>().HasData(rolesToSeed);
+
             var personsToSeed = new Person[1];
             personsToSeed[0] = new()
             {
@@ -84,7 +108,21 @@ namespace webapi.Data
             };
             modelBuilder.Entity<Person>().HasData(personsToSeed);
 
-            var clansToSeed = new Clan[1];
+            var personRolesToSeed = new PersonRole[1];
+            personRolesToSeed[0] = new PersonRole()
+            {
+                PersonRoleID = 1,
+                PersonID = 1,
+                RoleID = 1,
+                IsActive = true,
+                LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
+                LastUpdatedBy = "Kenneth R Odombe"
+            };
+            modelBuilder.Entity<PersonRole>().HasData(personRolesToSeed);
+
+            
+
+            var clansToSeed = new Clan[2];
             clansToSeed[0] = new()
             {
                 ClanID = 1,
@@ -92,7 +130,42 @@ namespace webapi.Data
                 Symbol = "Elephant",
                 SubTotem = "Hippopotamus"
             };
+            clansToSeed[1] = new()
+            {
+                ClanID = 2,
+                Name = "Clan2",
+                Symbol = "Elephant",
+                SubTotem = "Hippopotamus"
+            };
             modelBuilder.Entity<Clan>().HasData(clansToSeed);
+
+            var ClanHouseToSeed = new ClanHouse[4];
+            ClanHouseToSeed[0] = new()
+            {
+                ClanHouseID = 1,
+                ClanID = 1,
+                ClanHouseName = "FirstClanHouse"
+            };
+            ClanHouseToSeed[1] = new()
+            {
+                ClanHouseID = 2,
+                ClanID = 1,
+                ClanHouseName = "SecondClanHouse"
+            };
+            ClanHouseToSeed[2] = new()
+            {
+                ClanHouseID = 3,
+                ClanID = 2,
+                ClanHouseName = "SecondClan2House"
+            };
+            ClanHouseToSeed[3] = new()
+            {
+                ClanHouseID = 4,
+                ClanID = 2,
+                ClanHouseName = "SecondClan2House"
+            };
+            modelBuilder.Entity<ClanHouse>().HasData(ClanHouseToSeed);
+
         }
     }
 }

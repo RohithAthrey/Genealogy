@@ -3,19 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Data.Models;
 
-public class Clan
+public class Role
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int ClanID { get; set; }
+    public int RoleID { get; set; }
     [Required]
     [Column(TypeName = "varchar(32)")]
-    public string Name { get; set; }
+    public string RoleName { get; set; }
     [Required]
-    [Column(TypeName = "varchar(32)")]
-    public string Symbol { get; set; }
-    [Required]
-    [Column(TypeName = "varchar(32)")]
-    public string SubTotem { get; set; }
-    
+    [Column(TypeName = "varchar(64)")]
+    public string RoleDesc { get; set; }
+    public ICollection<PersonRole> PersonRoles { get; set; }
 }

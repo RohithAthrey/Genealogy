@@ -1,0 +1,32 @@
+<div class="w3-panel">
+  <div class="profile-container">
+    <div class="profile-picture">
+      <span *ngIf="profilePicPath === ''"><i class="fa fa-user fa-5x"></i></span>
+      <span *ngIf="profilePicPath !== ''">
+        <img [src]="createProfilePicPath(profilePicPath)" alt="profile picture" class="rounded-image">
+      </span>
+    </div>
+    <div class="profile-info">
+      <div class="info-row">
+        <span class="info-label">Surname:</span>
+        <span class="info-value">{{surname}}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Middle Name:</span>
+        <span class="info-value">{{middleName}}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">First Name:</span>
+        <span class="info-value">{{firstName}}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email:</span>
+        <span class="info-value">{{email}}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Telephone:</span>
+        <span class="info-value">{{phone}}</span>
+      </div>
+    </div>
+  </div>
+</div>

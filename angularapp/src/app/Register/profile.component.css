@@ -1,0 +1,25 @@
+.profile-picture img {
+  width: 200px; /* Change this value to adjust the size */
+  height: 200px; /* Change this value to adjust the size */
+  border-radius: 100%; /* Makes the image round */
+  object-fit: cover; /* Ensures the image fills the container */
+}
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.profile-info {
+  margin-left: 100px; /* Adjust the margin as needed */
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+.info-label {
+  font-weight: bold;
+  margin-right: 5px; /* Adjust the margin as needed */
+}

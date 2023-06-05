@@ -6,7 +6,11 @@ export interface PersonRegisterStatusDTO {
 export interface PersonStatus {
   personId: number;
   fullName: string;
-  clanName: string;
+  clanHouseName: string;
   profilePicPath: string;
-  personClanRequestId: number;
+  registerPara: string;
+  grandparents: string;
+  parents: string;
+  greatGrandparets: string;
+  personClanHouseRequestId: number;
 }

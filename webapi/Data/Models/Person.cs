@@ -50,7 +50,15 @@ public class Person
     [Required]
     [Column(TypeName = "varchar(128)")]
     public string LastUpdatedBy { get; set; }
+    [Column(TypeName = "varchar(MAX)")]
+    public string? RegisterPara { get; set; }
+    [Column(TypeName = "varchar(128)")]
+    public string? Grandparents { get; set; }
+    [Column(TypeName = "varchar(128)")]
+    public string? Parents { get; set; }
+    [Column(TypeName = "varchar(128)")]
+    public string? GreatGrandparents { get; set; }
     public Gender Gender { get; set; }
-    public ICollection<PersonClanRequest> PersonClanRequests { get; set; }
-
+    public ICollection<PersonClanHouseRequest> PersonClanHouseRequests { get; set; }
+    public ICollection<PersonRole> PersonRoles { get; set; }
 }
