@@ -1,4 +1,4 @@
-<div class="w3-panel">
+  <div class="w3-panel">
   <div class="w3-xlarge w3-bottombar w3-border-dark-grey w3-padding-16">Approval</div>
   <div class="w3-panel">
     <div class="w3-row-padding">
@@ -9,22 +9,23 @@
             <tr>
               <th class="w3-padding-16">Profile</th>
               <th class="w3-padding-16">Full Name</th>
-              <th class="w3-padding-16">Requested Clan</th>
+              <th class="w3-padding-16">Requested Clan House</th>
             </tr>
           </thead>
           <tbody class="w3-striped w3-white" *ngFor="let person of registerService.allPersonStatus">
-            <tr class="w3-striped w3-white">
-              <td><img [src]="createProfilePicPath(person.profilePicPath)" alt="profile picture" style="width:60px; height:60px;"></td>
-              <td>
-                <button class="transparent-button" (click)="openAboutMeModal(person)">{{person.fullName}}</button>
-              </td>
-              <td>{{person.clanHouseName}}</td>
-              <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanHouseRequestId, person.personId)">Approve</button>
-              </td> 
-              <td>
-                <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanHouseRequestId, person.personId)">Reject</button>
-              </td>
+            <tr class="w3-striped w3-white" *ngIf="person.clanHouseId===registerService.loggedinPersonClanHouse || registerService.userRoleDTO?.roleId === 1" >
+                  <td><img [src]="createProfilePicPath(person.profilePicPath)" alt="profile picture" style="width:60px; height:60px;"></td>
+                  <td >
+                    <button class="transparent-button" (click)="openAboutMeModal(person)">{{person.fullName}}</button>
+                  </td>
+                  <td >{{person.clanHouseName}}</td>
+                  <td >
+                    <button type="submit" class="w3-button w3-small w3-round w3-green" (click)="updateRegistration(2, person.personClanHouseRequestId, person.personId)">Approve</button>
+                  </td>
+                  <td >
+                    <button type="submit" class="w3-button w3-small w3-round w3-red" (click)="updateRegistration(3, person.personClanHouseRequestId, person.personId)">Reject</button>
+                  </td>
+
             </tr>
           </tbody>
         </table>

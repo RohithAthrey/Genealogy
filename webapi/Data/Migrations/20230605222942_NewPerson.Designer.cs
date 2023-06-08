@@ -12,8 +12,8 @@ using webapi.Data;
 namespace webapi.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230513134850_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20230605222942_NewPerson")]
+    partial class NewPerson
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,61 @@ namespace webapi.Data.Migrations
                             Name = "Njovu",
                             SubTotem = "Hippopotamus",
                             Symbol = "Elephant"
+                        },
+                        new
+                        {
+                            ClanID = 2,
+                            Name = "Clan2",
+                            SubTotem = "Hippopotamus",
+                            Symbol = "Elephant"
+                        });
+                });
+
+            modelBuilder.Entity("webapi.Data.Models.ClanHouse", b =>
+                {
+                    b.Property<int>("ClanHouseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClanHouseID"));
+
+                    b.Property<string>("ClanHouseName")
+                        .IsRequired()
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<int>("ClanID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClanHouseID");
+
+                    b.HasIndex("ClanID");
+
+                    b.ToTable("ClanHouse");
+
+                    b.HasData(
+                        new
+                        {
+                            ClanHouseID = 1,
+                            ClanHouseName = "FirstClanHouse",
+                            ClanID = 1
+                        },
+                        new
+                        {
+                            ClanHouseID = 2,
+                            ClanHouseName = "SecondClanHouse",
+                            ClanID = 1
+                        },
+                        new
+                        {
+                            ClanHouseID = 3,
+                            ClanHouseName = "SecondClan2House",
+                            ClanID = 2
+                        },
+                        new
+                        {
+                            ClanHouseID = 4,
+                            ClanHouseName = "SecondClan2House",
+                            ClanID = 2
                         });
                 });
 
@@ -114,6 +169,9 @@ namespace webapi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(32)");
 
+                    b.Property<int>("ClanHouseID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("varchar(64)");
 
@@ -123,6 +181,12 @@ namespace webapi.Data.Migrations
 
                     b.Property<int>("GenderID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Grandparents")
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("GreatGrandparents")
+                        .HasColumnType("varchar(128)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -149,8 +213,17 @@ namespace webapi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(32)");
 
+                    b.Property<string>("Parents")
+                        .HasColumnType("varchar(128)");
+
                     b.Property<string>("Password")
                         .HasColumnType("varchar(128)");
+
+                    b.Property<string>("ProfilePicPath")
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<string>("RegisterPara")
+                        .HasColumnType("varchar(MAX)");
 
                     b.Property<string>("Telephone")
                         .HasColumnType("varchar(16)");
@@ -168,6 +241,7 @@ namespace webapi.Data.Migrations
                             Address = "123 Unknown Street",
                             BirthDate = "01/1970",
                             City = "Johanesburg",
+                            ClanHouseID = 0,
                             Email = "kenny@unknown.com",
                             FirstName = "Kenneth",
                             GenderID = 1,
@@ -175,23 +249,43 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "Odombe",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 5, 13, 9, 48, 49, 744, DateTimeKind.Local).AddTicks(7810),
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 29, 41, 164, DateTimeKind.Local).AddTicks(7106),
                             LoginId = "kenny",
                             MiddleName = "R",
+                            Password = "1234",
+                            Telephone = "1234567890"
+                        },
+                        new
+                        {
+                            PersonID = 28,
+                            Address = "123 Unknown Street",
+                            BirthDate = "01/1970",
+                            City = "Johanesburg",
+                            ClanHouseID = 0,
+                            Email = "kenny@unknown.com",
+                            FirstName = "House",
+                            GenderID = 1,
+                            IsActive = true,
+                            IsUser = true,
+                            LastName = "First",
+                            LastUpdatedBy = "Kenneth R Odombe",
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 29, 41, 164, DateTimeKind.Local).AddTicks(7235),
+                            LoginId = "firsthouse",
+                            MiddleName = "Clan",
                             Password = "1234",
                             Telephone = "1234567890"
                         });
                 });
 
-            modelBuilder.Entity("webapi.Data.Models.PersonClanRequest", b =>
+            modelBuilder.Entity("webapi.Data.Models.PersonClanHouseRequest", b =>
                 {
-                    b.Property<int>("PersonClanRequestID")
+                    b.Property<int>("PersonClanHouseRequestID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonClanRequestID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonClanHouseRequestID"));
 
-                    b.Property<int>("ClanID")
+                    b.Property<int>("ClanHouseID")
                         .HasColumnType("int");
 
                     b.Property<string>("LastUpdatedBy")
@@ -207,15 +301,68 @@ namespace webapi.Data.Migrations
                     b.Property<int>("RequestTypeID")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonClanRequestID");
+                    b.HasKey("PersonClanHouseRequestID");
 
-                    b.HasIndex("ClanID");
+                    b.HasIndex("ClanHouseID");
 
                     b.HasIndex("PersonID");
 
                     b.HasIndex("RequestTypeID");
 
-                    b.ToTable("PersonClanRequest");
+                    b.ToTable("PersonClanHouseRequest");
+                });
+
+            modelBuilder.Entity("webapi.Data.Models.PersonRole", b =>
+                {
+                    b.Property<int>("PersonRoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonRoleID"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastUpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("varchar(128)");
+
+                    b.Property<DateTime>("LastUpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PersonID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonRoleID");
+
+                    b.HasIndex("PersonID");
+
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("PersonRole");
+
+                    b.HasData(
+                        new
+                        {
+                            PersonRoleID = 1,
+                            IsActive = true,
+                            LastUpdatedBy = "Kenneth R Odombe",
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 29, 41, 164, DateTimeKind.Local).AddTicks(7347),
+                            PersonID = 1,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            PersonRoleID = 9,
+                            IsActive = true,
+                            LastUpdatedBy = "Kenneth R Odombe",
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 29, 41, 164, DateTimeKind.Local).AddTicks(7369),
+                            PersonID = 28,
+                            RoleID = 3
+                        });
                 });
 
             modelBuilder.Entity("webapi.Data.Models.RequestType", b =>
@@ -259,6 +406,58 @@ namespace webapi.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("webapi.Data.Models.Role", b =>
+                {
+                    b.Property<int>("RoleID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
+
+                    b.Property<string>("RoleDesc")
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("varchar(32)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = 1,
+                            RoleDesc = "Admin role",
+                            RoleName = "Admin"
+                        },
+                        new
+                        {
+                            RoleID = 2,
+                            RoleDesc = "User role",
+                            RoleName = "User"
+                        },
+                        new
+                        {
+                            RoleID = 3,
+                            RoleDesc = "Clan Leader role",
+                            RoleName = "Clan Leader"
+                        });
+                });
+
+            modelBuilder.Entity("webapi.Data.Models.ClanHouse", b =>
+                {
+                    b.HasOne("webapi.Data.Models.Clan", "Clan")
+                        .WithMany()
+                        .HasForeignKey("ClanID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clan");
+                });
+
             modelBuilder.Entity("webapi.Data.Models.Person", b =>
                 {
                     b.HasOne("webapi.Data.Models.Gender", "Gender")
@@ -270,16 +469,16 @@ namespace webapi.Data.Migrations
                     b.Navigation("Gender");
                 });
 
-            modelBuilder.Entity("webapi.Data.Models.PersonClanRequest", b =>
+            modelBuilder.Entity("webapi.Data.Models.PersonClanHouseRequest", b =>
                 {
-                    b.HasOne("webapi.Data.Models.Clan", "Clan")
+                    b.HasOne("webapi.Data.Models.ClanHouse", "ClanHouse")
                         .WithMany()
-                        .HasForeignKey("ClanID")
+                        .HasForeignKey("ClanHouseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("webapi.Data.Models.Person", "Person")
-                        .WithMany("PersonClanRequests")
+                        .WithMany("PersonClanHouseRequests")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -290,16 +489,42 @@ namespace webapi.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Clan");
+                    b.Navigation("ClanHouse");
 
                     b.Navigation("Person");
 
                     b.Navigation("RequestType");
                 });
 
+            modelBuilder.Entity("webapi.Data.Models.PersonRole", b =>
+                {
+                    b.HasOne("webapi.Data.Models.Person", "Person")
+                        .WithMany("PersonRoles")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webapi.Data.Models.Role", "Role")
+                        .WithMany("PersonRoles")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("webapi.Data.Models.Person", b =>
                 {
-                    b.Navigation("PersonClanRequests");
+                    b.Navigation("PersonClanHouseRequests");
+
+                    b.Navigation("PersonRoles");
+                });
+
+            modelBuilder.Entity("webapi.Data.Models.Role", b =>
+                {
+                    b.Navigation("PersonRoles");
                 });
 #pragma warning restore 612, 618
         }

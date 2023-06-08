@@ -21,6 +21,20 @@ public static class LoginEndpoints
                 return Results.StatusCode(500);
             }
         });
+        app.MapPost("/login/clanHouse", async (LoginDTO loginDTO, AppDbContext dbContext) =>
+        {
+            var user = await dbContext.Person.FirstOrDefaultAsync(p =>
+          p.LoginId == loginDTO.Username && p.Password == loginDTO.Password && p.IsActive == true);
+            if (user != null)
+            {
+                return Results.Ok(user.ClanHouseID);
+            }
+            else
+            {
+                // 500 = internal server error.
+                return Results.StatusCode(500);
+            }
+        });
         app.MapGet("/login/getUserRoleModules/{Id}", async (int Id, AppDbContext dbContext) =>
         {
             var query = await (from p in dbContext.Person

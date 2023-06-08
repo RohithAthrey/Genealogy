@@ -31,6 +31,9 @@ public class Person
     [ForeignKey("Gender")]
     [Required]
     public int GenderID { get; set; }
+    [ForeignKey("ClanHouse")]
+    [Required]
+    public int ClanHouseID { get; set; }
     [Column(TypeName = "varchar(64)")]
     public string? Email { get; set; }
     [Required]

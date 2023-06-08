@@ -111,6 +111,7 @@ public static class RegistrationEndpoints
                 Grandparents = registrationDTO.Grandparents,
                 Parents = registrationDTO.Parents,
                 GreatGrandparents = registrationDTO.GreatGrandparents,
+                ClanHouseID=registrationDTO.ClanHouseID,
                 IsActive = false,
                 IsUser = true,
                 LastUpdatedDate = DateTime.Now,
@@ -205,6 +206,54 @@ public static class RegistrationEndpoints
                 else
                 {
                     // 500 = internal server error.
+                    return Results.BadRequest();
+                }
+            }
+            catch
+            {
+                // 500 = internal server error.
+                return Results.StatusCode(500);
+            }
+        });
+        app.MapPut("/register/updateProfilePicPath/{userId}", async (IFormFile file, int userId, AppDbContext dbContext) =>
+        {
+            // Retrieve the user record based on the provided userId
+            var user = await dbContext.Person.FindAsync(userId);// Retrieve the user based on the userId
+
+            if (user == null)
+            {
+                // Return an appropriate response indicating that the user was not found
+                return Results.NotFound();
+            }
+
+            var folderName = Path.Combine("Resources", "Images");
+            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            try
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var profilePicPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                    user.ProfilePicPath = profilePicPath;
+                    bool success = await dbContext.SaveChangesAsync() > 0; 
+                    if (success)
+                    {
+                        return Results.Ok(new { profilePicPath });
+                    }
+                    else
+                    {
+                        return Results.StatusCode(500);
+                    }
+
+                }
+                else
+                {
+                    // 400 = bad request.
                     return Results.BadRequest();
                 }
             }

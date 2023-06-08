@@ -34,19 +34,18 @@ export class myClanComponent implements OnInit {
     this.registerService.isOpenLoginForm = false;
     this.registerService.isOpenApproveForm = false;
     this.registerService.isOpenProfileForm = false;
-    // this.registerService.isOpenmyClanForm = false;
+    /*this.registerService.isOpenmyClanForm = false;*/
     this.registerService.isOpenFamilyTree = true;
   }
   openFamilyTree2() {
-    this.originalSelClanHouseName = this.registerService.selectedClanHouseName;
     this.registerService.isOpenHomeForm = false;
     this.registerService.isOpenAboutForm = false;
     this.registerService.isOpenRegisterForm = false;
     this.registerService.isOpenLoginForm = false;
     this.registerService.isOpenApproveForm = false;
     this.registerService.isOpenProfileForm = false;
-    // this.registerService.isOpenmyClanForm = false;
-    this.registerService.selectedClanHouseName = this.registerService.originalHouseName;
+    /*this.registerService.isOpenmyClanForm = false;*/
+    this.registerService.selectedClanHouseName = this.originalSelClanHouseName;
     this.registerService.isOpenFamilyTree = true;
   }
   clanValueChanged(item: any) {

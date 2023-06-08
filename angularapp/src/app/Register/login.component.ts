@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     var login = {} as LoginDTO;
     login.username = this.username;
     login.password = this.password;
-    this.httpClient
+    this.httpClient 
       .post(APIEndpoints.VERIFY_LOGIN, login, HTTP_OPTIONS)
       .subscribe({
         next: (registeredPersonFromServer) => {
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
           this.loginSuccess = "Successfully logged in:";
           this.registerService.loggedinPersonId = parseInt(registeredPersonFromServer.toString(), 10);
           console.log('Successfully registered! Response from server:');
+          console.log(this.registerService.userRoleDTO?.roleId);
           console.log(registeredPersonFromServer);
           this.httpClient.get<UserRoleDTO>(`${APIEndpoints.GET_ROLE_MODULES_BY_USERID}/${registeredPersonFromServer}`)
             .subscribe({
@@ -74,6 +75,16 @@ export class LoginComponent implements OnInit {
           this.showFailure = true;
           this.loginFailure = "Failed to login:";
           console.log(`Failed to register! Response from server: "HTTP statuscode: ${error.status}: ${error.error}"`);
+        },
+      });
+    this.httpClient
+      .post(APIEndpoints.CLAN_HOUSE_LOGIN, login, HTTP_OPTIONS)
+      .subscribe({
+        next: (clanHouse) => {
+          this.registerService.loggedinPersonClanHouse = parseInt(clanHouse.toString(), 10);
+          console.log(this.registerService.loggedinPersonClanHouse);
+        },
+        error: (error: HttpErrorResponse) => {
         },
       });
     

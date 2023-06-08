@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Data;
 
@@ -11,9 +12,11 @@ using webapi.Data;
 namespace webapi.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230605223401_AddedClanHouseID")]
+    partial class AddedClanHouseID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,7 +249,7 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "Odombe",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4473),
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 34, 1, 66, DateTimeKind.Local).AddTicks(5032),
                             LoginId = "kenny",
                             MiddleName = "R",
                             Password = "1234",
@@ -266,28 +269,8 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "First",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4595),
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 34, 1, 66, DateTimeKind.Local).AddTicks(5150),
                             LoginId = "firsthouse",
-                            MiddleName = "Clan",
-                            Password = "1234",
-                            Telephone = "1234567890"
-                        },
-                        new
-                        {
-                            PersonID = 35,
-                            Address = "123 Unknown Street",
-                            BirthDate = "01/1970",
-                            City = "Johanesburg",
-                            ClanHouseID = 2,
-                            Email = "kenny@unknown.com",
-                            FirstName = "House",
-                            GenderID = 1,
-                            IsActive = true,
-                            IsUser = true,
-                            LastName = "Second",
-                            LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4610),
-                            LoginId = "secondhouse",
                             MiddleName = "Clan",
                             Password = "1234",
                             Telephone = "1234567890"
@@ -367,7 +350,7 @@ namespace webapi.Data.Migrations
                             PersonRoleID = 1,
                             IsActive = true,
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4674),
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 34, 1, 66, DateTimeKind.Local).AddTicks(5208),
                             PersonID = 1,
                             RoleID = 1
                         },
@@ -376,17 +359,8 @@ namespace webapi.Data.Migrations
                             PersonRoleID = 9,
                             IsActive = true,
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4685),
+                            LastUpdatedDate = new DateTime(2023, 6, 5, 18, 34, 1, 66, DateTimeKind.Local).AddTicks(5220),
                             PersonID = 28,
-                            RoleID = 3
-                        },
-                        new
-                        {
-                            PersonRoleID = 11,
-                            IsActive = true,
-                            LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 6, 8, 27, 49, 175, DateTimeKind.Local).AddTicks(4694),
-                            PersonID = 35,
                             RoleID = 3
                         });
                 });

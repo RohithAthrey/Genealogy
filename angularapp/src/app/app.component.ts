@@ -164,7 +164,7 @@ export class AppComponent implements OnInit {
   }
   logout() {
     if (this.registerService.userRoleDTO != undefined) {
-      this.registerService.userRoleDTO.roleId = 3;
+      this.registerService.userRoleDTO.roleId = 0;
     }
     this.registerService.isOpenHomeForm = true;
     this.registerService.isOpenAboutForm = false;

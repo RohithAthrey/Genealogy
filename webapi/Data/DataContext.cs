@@ -70,23 +70,30 @@ namespace webapi.Data
             };
             modelBuilder.Entity<RequestType>().HasData(reqTypesToSeed);
 
-            var rolesToSeed = new Role[2];
+            var rolesToSeed = new Role[3];
             rolesToSeed[0] = new()
             {
                 RoleID = 1,
                 RoleName = "Admin",
                 RoleDesc = "Admin role"
             };
+
             rolesToSeed[1] = new()
             {
                 RoleID = 2,
                 RoleName = "User",
                 RoleDesc = "User role"
             };
-            
+            rolesToSeed[2] = new()
+            {
+                RoleID = 3,
+                RoleName = "Clan Leader",
+                RoleDesc = "Clan Leader role"
+            };
+
             modelBuilder.Entity<Role>().HasData(rolesToSeed);
 
-            var personsToSeed = new Person[1];
+            var personsToSeed = new Person[3];
             personsToSeed[0] = new()
             {
                 PersonID = 1,
@@ -106,14 +113,72 @@ namespace webapi.Data
                 LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
                 LastUpdatedBy = "Kenneth R Odombe"
             };
+            personsToSeed[1] = new()
+            {
+                PersonID = 28,
+                LastName = "First",
+                MiddleName = "Clan",
+                FirstName = "House",
+                BirthDate = "01/1970",
+                Address = "123 Unknown Street",
+                City = "Johanesburg",
+                Telephone = "1234567890",
+                GenderID = 1,
+                Email = "kenny@unknown.com",
+                LoginId = "firsthouse",
+                Password = "1234",
+                IsActive = true,
+                IsUser = true,
+                ClanHouseID = 1,
+                LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
+                LastUpdatedBy = "Kenneth R Odombe"
+            };
+            personsToSeed[2] = new()
+            {
+                PersonID = 35,
+                LastName = "Second",
+                MiddleName = "Clan",
+                FirstName = "House",
+                BirthDate = "01/1970",
+                Address = "123 Unknown Street",
+                City = "Johanesburg",
+                Telephone = "1234567890",
+                GenderID = 1,
+                Email = "kenny@unknown.com",
+                LoginId = "secondhouse",
+                Password = "1234",
+                IsActive = true,
+                IsUser = true,
+                ClanHouseID = 2,
+                LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
+                LastUpdatedBy = "Kenneth R Odombe"
+            };
             modelBuilder.Entity<Person>().HasData(personsToSeed);
 
-            var personRolesToSeed = new PersonRole[1];
+            var personRolesToSeed = new PersonRole[3];
             personRolesToSeed[0] = new PersonRole()
             {
                 PersonRoleID = 1,
                 PersonID = 1,
                 RoleID = 1,
+                IsActive = true,
+                LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
+                LastUpdatedBy = "Kenneth R Odombe"
+            };
+            personRolesToSeed[1] = new PersonRole()
+            {
+                PersonRoleID = 9,
+                PersonID = 28,
+                RoleID = 3,
+                IsActive = true,
+                LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
+                LastUpdatedBy = "Kenneth R Odombe"
+            };
+            personRolesToSeed[2] = new PersonRole()
+            {
+                PersonRoleID = 11,
+                PersonID = 35,
+                RoleID = 3,
                 IsActive = true,
                 LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
                 LastUpdatedBy = "Kenneth R Odombe"

@@ -6,8 +6,11 @@
 }
 .profile-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Change to 'flex-start' to align items at the top */
+  margin-bottom: 20px; /* Add some margin to create space between elements */
 }
+
+
 
 .profile-info {
   margin-left: 100px; /* Adjust the margin as needed */
@@ -16,7 +19,8 @@
 .info-row {
   display: flex;
   align-items: center;
-  margin-bottom: 5px; /* Adjust the margin as needed */
+  margin-bottom: 5px;
+  flex-wrap: wrap; /* Add 'flex-wrap' to allow content to wrap */
 }
 
 .info-label {

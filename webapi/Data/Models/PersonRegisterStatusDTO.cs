@@ -12,6 +12,7 @@ public class PersonStatus
     public string FullName { get; set; }
     public string ProfilePicPath { get; set; }
     public string ClanHouseName { get; set; }
+    public int ClanHouseId { get; set; }
     public string RegisterPara { get; set; }
     public string Grandparents { get; set; }
     public string Parents { get; set; }

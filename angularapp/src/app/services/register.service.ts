@@ -21,6 +21,7 @@ export class RegisterService {
   allPersonStatus?: PersonStatus[];
   userRoleDTO?: UserRoleDTO;
   loggedinPersonId?: number;
+  loggedinPersonClanHouse?: number;
   originalHouseName?: string;
   logoutBoolean= false;
 

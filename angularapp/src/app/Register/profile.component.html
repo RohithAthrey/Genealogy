@@ -1,8 +1,8 @@
 <div class="w3-panel">
   <div class="profile-container">
     <div class="profile-picture">
-      <span *ngIf="profilePicPath === ''"><i class="fa fa-user fa-5x"></i></span>
-      <span *ngIf="profilePicPath !== ''">
+      <span *ngIf="profilePicPath === '' || profilePicPath===null"><i class="fa fa-user fa-5x"></i></span>
+      <span *ngIf="profilePicPath !== '' && profilePicPath!==null">
         <img [src]="createProfilePicPath(profilePicPath)" alt="profile picture" class="rounded-image">
       </span>
     </div>
@@ -21,11 +21,25 @@
       </div>
       <div class="info-row">
         <span class="info-label">Email:</span>
-        <span class="info-value">{{email}}</span>
+        <span class="info-value">{{email}}</span> 
       </div>
       <div class="info-row">
         <span class="info-label">Telephone:</span>
         <span class="info-value">{{phone}}</span>
+      </div>
+      <div class="w3-section w3-padding-16">
+        <span class="w3-col s10">
+          <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+          <button type="button" class="w3-button w3-block w3-green" (click)="file.click()">Upload Profile Picture</button>
+        </span>
+        <span class="w3-col s10">
+          <span class="upload" *ngIf="imgProgress > 0">
+            {{imgProgress}}%
+          </span>
+          <span class="upload" *ngIf="imgMsg">
+            {{imgMsg}}
+          </span>
+        </span>
       </div>
     </div>
   </div>

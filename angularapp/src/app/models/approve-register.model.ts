@@ -11,6 +11,7 @@ export interface PersonStatus {
   registerPara: string;
   grandparents: string;
   parents: string;
+  clanHouseId: number;
   greatGrandparets: string;
   personClanHouseRequestId: number;
 }

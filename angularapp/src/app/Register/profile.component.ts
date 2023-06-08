@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RegisterService } from '../services/register.service';
 import APIEndpoints from '../constants/APIEndpoints';
@@ -21,10 +21,20 @@ export class ProfileComponent implements OnInit {
   email: string = '';
   phone: string = '';
   profilePicPath: string = '';
-  
+  imgProgress: number;
+  imgMsg: string;
+  failMsg: string;
+  showFailMsg: boolean;
+  successMsg: string;
+  showSuccessMsg: boolean;
+
   constructor(private httpClient: HttpClient, public registerService: RegisterService) {
-
-
+    this.showFailMsg = false;
+    this.failMsg = '';
+    this.showSuccessMsg = false;
+    this.successMsg = '';
+    this.imgProgress = 0;
+    this.imgMsg = '';
   }
 
   ngOnInit() {
@@ -43,6 +53,35 @@ export class ProfileComponent implements OnInit {
           this.phone = response.phone;
         })
 
+
+  }
+  uploadFile(files: any) {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+
+    this.httpClient
+      .put(`${APIEndpoints.UPDATE_PROFILE_PICTURE}/${this.registerService.loggedinPersonId}`, formData, { reportProgress: true, observe: 'events' })
+      .subscribe({
+        next: (event: any) => {
+          if (event.type === HttpEventType.UploadProgress)
+            this.imgProgress = Math.round(100 * event.loaded / event.total);
+          else if (event.type === HttpEventType.Response) {
+            this.imgMsg = 'Upload success.';
+            console.log(event.body);
+            this.profilePicPath = event.body.profilePicPath; 
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          this.showFailMsg = true;
+          this.failMsg = 'Failed to upload user profile:';
+          console.log(`Failed to upload user profile! Response from server: "HTTP statuscode: ${error.status}: ${error.error}"`);
+        },
+      });
 
   }
   createProfilePicPath(serverPath: any) {

@@ -16,7 +16,7 @@
       <div class="w3-col s3">
         <a href="#home" class="w3-button w3-block" (click)="openHomeForm()">
           <span>
-            <i class="fa fa-home w3-xlarge"></i>
+            <i class="fa fa-home w3-xlarge"></i>  
             <span> HOME</span>
           </span>
         </a>
@@ -31,15 +31,15 @@
       </div>
       <div class="w3-col s3 w3-dropdown-hover w3-hide-small">
         <ng-container *ngIf="registerService.userRoleDTO?.roleId === 1 || registerService.userRoleDTO?.roleId != 2; else myClanButton">
-          <button class="w3-button w3-block" title="Notifications" onmouseenter="document.getElementById('dropdown-content').style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.contains(event.relatedTarget))) { document.getElementById('dropdown-content').style.display='none'; }">
+          <button class="w3-button w3-block" title="Notifications" onmouseenter="document.getElementById('dropdown-content1').style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.contains(event.relatedTarget))) { document.getElementById('dropdown-content1').style.display='none'; }">
             <span>
               <i class="fa fa-pencil-square-o w3-xlarge"></i>
               <span> Registration <i class="fa fa-caret-down"></i></span>
             </span>
           </button>
-          <div class="w3-dropdown-content w3-card-4 w3-bar-block w3-block" id="dropdown-content" style="display: none" onmouseenter="this.style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.parentNode.contains(event.relatedTarget))) { this.style.display='none'; }">
+          <div class="w3-dropdown-content w3-card-4 w3-bar-block w3-block" id="dropdown-content1" style="display: none" onmouseenter="this.style.display='block'" onmouseleave="if(!event.relatedTarget || (event.relatedTarget !== this && !this.parentNode.contains(event.relatedTarget))) { this.style.display='none'; }">
             <a href="#register" class="w3-bar-item w3-button" (click)="openRequestForm()">Request Registration</a>
-            <a href="#approve" *ngIf="registerService.userRoleDTO && registerService.userRoleDTO.roleId===1" class="w3-bar-item w3-button" (click)="openApproveForm()">Verify Requests</a>
+            <a href="#approve" *ngIf="registerService.userRoleDTO && (registerService.userRoleDTO.roleId===1||registerService.userRoleDTO.roleId===3)" class="w3-bar-item w3-button" (click)="openApproveForm()">Verify Requests</a>
           </div>
         </ng-container>
         <ng-template #myClanButton>
@@ -54,7 +54,7 @@
 
 
       <div class="w3-col s3">
-        <ng-container *ngIf="registerService.userRoleDTO?.roleId !== 1 && registerService.userRoleDTO?.roleId !== 2; else profileButton">
+        <ng-container *ngIf="registerService.userRoleDTO?.roleId !== 1 && registerService.userRoleDTO?.roleId !== 2 && registerService.userRoleDTO?.roleId !== 3; else profileButton">
           <a href="#login" class="w3-button w3-block" (click)="openLoginForm()">
             <span>
               <i class="fa fa-user w3-xlarge"></i>
