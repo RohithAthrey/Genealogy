@@ -17,11 +17,15 @@ export class myClanComponent implements OnInit {
   selClanHouse: number;
   selClanHouseName: string;
   originalSelClanHouseName?: string;
+  isMaleNamesModalOpen: boolean;
+  isFemaleNamesModalOpen: boolean;
   constructor(private httpClient: HttpClient, public registerService: RegisterService) {
     this.selClan = 0;
     this.originalSelClanHouseName = this.registerService.selectedClanHouseName;
     this.selClanHouse = 0;
     this.selClanHouseName = '';
+    this.isMaleNamesModalOpen = false;
+    this.isFemaleNamesModalOpen = false;
   }
 
   ngOnInit() {
@@ -80,7 +84,18 @@ export class myClanComponent implements OnInit {
     this.registerService.selectedClanHouseTree = this.selClanHouse;
     this.registerService.selectedClanHouseName = this.selClanHouseName;
   }
-
+  openMaleNamesModal() {
+    this.isMaleNamesModalOpen = true;
+  }
+  closeMaleNamesModal() {
+    this.isMaleNamesModalOpen = false;
+  }
+  openFemaleNamesModal() {
+    this.isFemaleNamesModalOpen = true;
+  }
+  closeFemaleNamesModal() {
+    this.isFemaleNamesModalOpen = false;
+  }
   
   
 

@@ -221,13 +221,13 @@ namespace webapi.Data
             {
                 ClanHouseID = 3,
                 ClanID = 2,
-                ClanHouseName = "SecondClan2House"
+                ClanHouseName = "ThirdHouse"
             };
             ClanHouseToSeed[3] = new()
             {
                 ClanHouseID = 4,
                 ClanID = 2,
-                ClanHouseName = "SecondClan2House"
+                ClanHouseName = "FourthHouse"
             };
             modelBuilder.Entity<ClanHouse>().HasData(ClanHouseToSeed);
 

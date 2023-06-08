@@ -1,84 +1,62 @@
 <div class="container" *ngIf="!registerService.isOpenFamilyTree">
   <div class="image-container">
-    <img src='../assets/BogandaPainting.jfif' alt="Big Picture" class="big-picture">
-    <img src='../assets/BogandaPainting.jfif' alt="Small Picture" class="small-picture">
+    <img src='../assets/elephant.png' alt="Big Picture" class="big-picture">
+    <img src='../assets/hippo1.jfif' alt="Small Picture" class="small-picture">
   </div>
-  <div class="button-container">
-    <button class="button">Male Names</button>
-    <button class="button">Female Names</button>
-    <div class="dropdown">
-      <button class="dropdown-toggle">Clan</button>
-      <div class="dropdown-content">
-        <select (change)="clanValueChanged($event)">
-          <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
-        </select>
+  <div class="content-container">
+    <p class="info-text">
+      Clan Origin: It is assumed that when Kabaaka Kintu (the founding King of Buganda) came to Buganda, he came along with Ssessanga as one of his followers, who was carrying Kintu's spears and shields.
+
+      When Kintu settled at Nnono, he awarded Ssessanga a place at a village called Ntonyeze in Busujju. While at Ntonyeze Ssessanga had a son, called Mukalo. When Ssessanga died, Mukalo became his heir. King Ccwal transferred Mukalo from Ntonyeze and gave him a place at Kambugu, in Busiro. Since that time Kambugu is the seat (Butaka) of the Njovu clan. Mukalo is the founding father of the clan.
+    </p>
+    <div class="button-container">
+      <button class="button" (click)="openMaleNamesModal()">Male Names</button>
+      <button class="button" (click)="openFemaleNamesModal()">Female Names</button>
+      <div class="dropdown">
+        <button class="dropdown-toggle">Clan</button>
+        <div class="dropdown-content">
+          <select (change)="clanValueChanged($event)">
+            <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div class="dropdown">
-      <button class="dropdown-toggle">Clan House</button>
-      <div class="dropdown-content">
-        <select (change)="updateClanHouseOptions($event)">
-          <option *ngFor="let clanHouse of getFilteredClanHouses()" [value]="clanHouse.clanHouseID" [selected]="clanHouse.clanHouseID === selClanHouse">{{ clanHouse.clanHouseName }}</option>
-        </select>
+      <div class="dropdown">
+        <button class="dropdown-toggle">Clan House</button>
+        <div class="dropdown-content">
+          <select (change)="updateClanHouseOptions($event)">
+            <option *ngFor="let clanHouse of getFilteredClanHouses()" [value]="clanHouse.clanHouseID" [selected]="clanHouse.clanHouseID === selClanHouse">{{ clanHouse.clanHouseName }}</option>
+          </select>
+        </div>
       </div>
+      <button type="submit" class="button" (click)="openFamilyTree()">Go to Selected House</button>
+      <button type="submit" class="button" (click)="openFamilyTree2()">Go to My Clan</button>
     </div>
-    <button type="submit" class="button" (click)="openFamilyTree()">Go to Selected House</button>
-    <button type="submit" class="button" (click)="openFamilyTree2()">Go to My Clan</button>
   </div>
 </div>
 
+    <div id="MaleNamesModal" class="w3-modal" [ngClass]="{'w3-show': isMaleNamesModalOpen}">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span class="w3-button w3-display-topright" (click)="closeMaleNamesModal()">&times;</span>
+          <p>
+            Ssemmambo, Galabuzi, Kikomeko, Ssevviiri, Batte, Sseddyabanne, Ssentulubalo, Ssezzooba, Ssettyabule, Kiro, Ssebbaale, Ssessanga, Ssenteza, Ssozi, Ssegujja, Ssekandi, Ssekimpi, Wavvuvuumira, Kayaaye, Ssengo, Katunda, Kayiga, Ssenyomo, Ssemaanyi, Ssemukina, Nkayiivu, Ssensalire, Kakembo, Ssentomero, Mbazzi, Ntambi, Muzingu, Bitalo.
 
-
-<!--<div class="container">
-  <img src='../assets/BogandaPainting.jfif' alt="Big Picture" class="big-picture">
-  <img src='../assets/BogandaPainting.jfif' alt="Small Picture" class="small-picture">
-</div>
-
-<div class="buttons">
-  <button class="button">Male Names</button>
-  <button class="button">Female Names</button>
-</div>
-
-<div class="buttons">
-  <button class="button">My House</button>
-  <button class="button">My Clan</button>
-  <button class="button">Clan House</button>
-  <button class="button">Go to Selected House</button>
-</div>-->
-<!--<div class="w3-panel">
-  <div class="container" *ngIf="!registerService.isOpenFamilyTree">
-    <img class="image" src='../assets/BogandaPainting.jfif' alt="Big Picture">
-    <div class="small-image">
-      <img src='../assets/BogandaPainting.jfif' alt="Small Picture">
-    </div>
-    <div class="buttons">
-      <button class="button">Male Names</button>
-      <button class="button">Female Names</button>
-      <div class="button-container">
-        <button type="submit" class="side-button" (click)="openFamilyTree2()">My House</button>
-        <div class="dropdown">
-          <button class="side-button">Select Clan</button>
-          <span class="dropdown-content">
-            <select (change)="clanValueChanged($event)">
-              <option *ngFor="let clan of registerService.allClans">{{clan.name}}</option>
-            </select>
-          </span>
+          </p>
         </div>
-        <div class="w3-section w3-padding-16">
-          <span class="w3-col s2">
-            <button class="side-button">Clan House: </button>
-          </span>
-          <span class="w3-col s10">
-            <select (change)="updateClanHouseOptions($event)">
-              <option *ngFor="let clanHouse of getFilteredClanHouses()" [value]="clanHouse.clanHouseID" [selected]="clanHouse.clanHouseID === selClanHouse">{{ clanHouse.clanHouseName }}</option>
-            </select>
-          </span>
-        </div>
-        <button class="button" (click)="openFamilyTree()">Go To Selected House</button>
       </div>
     </div>
-  </div>-->
-<div class="w3-row-padding" id="familyTree">
-  <div *ngIf="registerService.isOpenFamilyTree"></div>
-    <familyTree *ngIf="registerService.isOpenFamilyTree"></familyTree>
-</div>
+    <div id="FemaleNamesModal" class="w3-modal" [ngClass]="{'w3-show': isFemaleNamesModalOpen}">
+      <div class="w3-modal-content">
+        <div class="w3-container">
+          <span class="w3-button w3-display-topright" (click)="closeFemaleNamesModal()">&times;</span>
+          <p>
+            Nassanga, Nanteza, Nagujja, Nakandi, Nabitalo, Namaato, Nabatte, Nabwato, Nambatuusa, Namukina, Nakayiga, Nnabbaale, Namaanyi, Nantambi, Nabuule, Nassozi, Nakate
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="w3-row-padding" id="familyTree">
+      <div *ngIf="registerService.isOpenFamilyTree"></div>
+      <familyTree *ngIf="registerService.isOpenFamilyTree"></familyTree>
+    </div>

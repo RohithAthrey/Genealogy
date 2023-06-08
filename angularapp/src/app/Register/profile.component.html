@@ -27,7 +27,7 @@
         <span class="info-label">Telephone:</span>
         <span class="info-value">{{phone}}</span>
       </div>
-      <div class="w3-section w3-padding-16">
+      <div class="w3-section w3-padding-16" *ngIf="profilePicPath === '' || profilePicPath===null">
         <span class="w3-col s10">
           <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
           <button type="button" class="w3-button w3-block w3-green" (click)="file.click()">Upload Profile Picture</button>
