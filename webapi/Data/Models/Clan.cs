@@ -9,13 +9,26 @@ public class Clan
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ClanID { get; set; }
     [Required]
-    [Column(TypeName = "varchar(32)")]
     public string Name { get; set; }
     [Required]
-    [Column(TypeName = "varchar(32)")]
     public string Symbol { get; set; }
     [Required]
-    [Column(TypeName = "varchar(32)")]
     public string SubTotem { get; set; }
-    
 }
+
+//public class Clan
+//{
+//    [Key]
+//    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+//    public int ClanID { get; set; }
+//    [Required]
+//    [Column(TypeName = "varchar(32)")]
+//    public string Name { get; set; }
+//    [Required]
+//    [Column(TypeName = "varchar(32)")]
+//    public string Symbol { get; set; }
+//    [Required]
+//    [Column(TypeName = "varchar(32)")]
+//    public string SubTotem { get; set; }
+
+//}

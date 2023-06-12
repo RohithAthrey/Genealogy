@@ -28,8 +28,8 @@
           </select>
         </div>
       </div>
-      <button type="submit" class="button" (click)="openFamilyTree()">Go to Selected House</button>
-      <button type="submit" class="button" (click)="openFamilyTree2()">Go to My Clan</button>
+      <button type="submit" class="button"  [disabled]="!isHouseSelected" (click)="openFamilyTree()">Go to Selected House</button>
+      <button type="submit" class="button" (click)="openFamilyTree2()">Go to My House</button>
     </div>
   </div>
 </div>

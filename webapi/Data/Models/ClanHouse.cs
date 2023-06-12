@@ -9,11 +9,23 @@ namespace webapi.Data.Models;
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClanHouseID { get; set; }
         [Required]
-        [Column(TypeName = "varchar(32)")]
         public string ClanHouseName { get; set;}
         [ForeignKey("Clan")]
         [Required]
         public int ClanID { get; set; }
         public Clan Clan { get; set; }
-}
+    }
 
+//public class ClanHouse
+//{
+//    [Key]
+//    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+//    public int ClanHouseID { get; set; }
+//    [Required]
+//    [Column(TypeName = "varchar(32)")]
+//    public string ClanHouseName { get; set; }
+//    [ForeignKey("Clan")]
+//    [Required]
+//    public int ClanID { get; set; }
+//    public Clan Clan { get; set; }
+//}

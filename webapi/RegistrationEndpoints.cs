@@ -1,6 +1,7 @@
 ﻿using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.IO;
 using System.Net.Http.Headers;
 using webapi.Data;
 using webapi.Data.Models;
@@ -189,6 +190,19 @@ public static class RegistrationEndpoints
         app.MapPost("/register/upload", async (IFormFile file) =>
         {
             var folderName = Path.Combine("Resources", "Images");
+            var folderOuterName = "Resources";
+            var folderInnerName = "Images";
+            if (!Directory.Exists(folderOuterName))
+            {
+                DirectoryInfo dout = Directory.CreateDirectory(folderOuterName);
+                DirectoryInfo din = Directory.CreateDirectory(folderInnerName);
+            } else
+            {
+                if (!Directory.Exists(folderInnerName))
+                {
+                    DirectoryInfo din = Directory.CreateDirectory(folderInnerName);
+                }
+            }
             var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
             try
             {

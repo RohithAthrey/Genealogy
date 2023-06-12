@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Data;
 
@@ -16,31 +15,25 @@ namespace webapi.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
 
             modelBuilder.Entity("webapi.Data.Models.Clan", b =>
                 {
                     b.Property<int>("ClanID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClanID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SubTotem")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ClanID");
 
@@ -67,16 +60,14 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("ClanHouseID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClanHouseID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClanHouseName")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ClanID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ClanHouseID");
 
@@ -115,17 +106,15 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("GenderID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenderID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("GenderCode")
                         .IsRequired()
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GenderValue")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("GenderID");
 
@@ -150,80 +139,78 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("PersonID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("BirthDate")
                         .IsRequired()
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ClanHouseID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("GenderID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Grandparents")
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("GreatGrandparents")
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsUser")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastUpdatedBy")
                         .IsRequired()
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastUpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginId")
                         .IsRequired()
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("MiddleName")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Parents")
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProfilePicPath")
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RegisterPara")
-                        .HasColumnType("varchar(MAX)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Telephone")
-                        .HasColumnType("varchar(16)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("PersonID");
 
@@ -246,7 +233,7 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "Odombe",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(236),
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 510, DateTimeKind.Local).AddTicks(9874),
                             LoginId = "kenny",
                             MiddleName = "R",
                             Password = "1234",
@@ -254,7 +241,7 @@ namespace webapi.Data.Migrations
                         },
                         new
                         {
-                            PersonID = 28,
+                            PersonID = 2,
                             Address = "123 Unknown Street",
                             BirthDate = "01/1970",
                             City = "Johanesburg",
@@ -266,7 +253,7 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "First",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(360),
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 510, DateTimeKind.Local).AddTicks(9994),
                             LoginId = "firsthouse",
                             MiddleName = "Clan",
                             Password = "1234",
@@ -274,7 +261,7 @@ namespace webapi.Data.Migrations
                         },
                         new
                         {
-                            PersonID = 35,
+                            PersonID = 3,
                             Address = "123 Unknown Street",
                             BirthDate = "01/1970",
                             City = "Johanesburg",
@@ -286,7 +273,7 @@ namespace webapi.Data.Migrations
                             IsUser = true,
                             LastName = "Second",
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(375),
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 511, DateTimeKind.Local).AddTicks(9),
                             LoginId = "secondhouse",
                             MiddleName = "Clan",
                             Password = "1234",
@@ -298,25 +285,23 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("PersonClanHouseRequestID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonClanHouseRequestID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ClanHouseID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastUpdatedBy")
                         .IsRequired()
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastUpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("PersonID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RequestTypeID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("PersonClanHouseRequestID");
 
@@ -333,25 +318,23 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("PersonRoleID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonRoleID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastUpdatedBy")
                         .IsRequired()
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastUpdatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("PersonID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RoleID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("PersonRoleID");
 
@@ -367,26 +350,26 @@ namespace webapi.Data.Migrations
                             PersonRoleID = 1,
                             IsActive = true,
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(439),
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 511, DateTimeKind.Local).AddTicks(70),
                             PersonID = 1,
                             RoleID = 1
                         },
                         new
                         {
-                            PersonRoleID = 9,
+                            PersonRoleID = 2,
                             IsActive = true,
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(450),
-                            PersonID = 28,
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 511, DateTimeKind.Local).AddTicks(81),
+                            PersonID = 2,
                             RoleID = 3
                         },
                         new
                         {
-                            PersonRoleID = 11,
+                            PersonRoleID = 3,
                             IsActive = true,
                             LastUpdatedBy = "Kenneth R Odombe",
-                            LastUpdatedDate = new DateTime(2023, 6, 8, 8, 27, 31, 4, DateTimeKind.Local).AddTicks(460),
-                            PersonID = 35,
+                            LastUpdatedDate = new DateTime(2023, 6, 11, 22, 39, 9, 511, DateTimeKind.Local).AddTicks(91),
+                            PersonID = 3,
                             RoleID = 3
                         });
                 });
@@ -395,9 +378,7 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("RequestTypeID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RequestTypeID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RequestTypeCode")
                         .IsRequired()
@@ -436,17 +417,15 @@ namespace webapi.Data.Migrations
                 {
                     b.Property<int>("RoleID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RoleDesc")
                         .IsRequired()
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasColumnType("varchar(32)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("RoleID");
 

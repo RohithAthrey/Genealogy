@@ -19,6 +19,8 @@ export class myClanComponent implements OnInit {
   originalSelClanHouseName?: string;
   isMaleNamesModalOpen: boolean;
   isFemaleNamesModalOpen: boolean;
+  isHouseSelected: boolean = false;
+  selectedHouseColor: string = '';
   constructor(private httpClient: HttpClient, public registerService: RegisterService) {
     this.selClan = 0;
     this.originalSelClanHouseName = this.registerService.selectedClanHouseName;
@@ -82,6 +84,7 @@ export class myClanComponent implements OnInit {
 
     console.log(this.selClanHouseName);
     this.registerService.selectedClanHouseTree = this.selClanHouse;
+    this.isHouseSelected = true;
     this.registerService.selectedClanHouseName = this.selClanHouseName;
   }
   openMaleNamesModal() {

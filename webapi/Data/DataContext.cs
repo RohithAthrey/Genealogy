@@ -115,7 +115,7 @@ namespace webapi.Data
             };
             personsToSeed[1] = new()
             {
-                PersonID = 28,
+                PersonID = 2,
                 LastName = "First",
                 MiddleName = "Clan",
                 FirstName = "House",
@@ -135,7 +135,7 @@ namespace webapi.Data
             };
             personsToSeed[2] = new()
             {
-                PersonID = 35,
+                PersonID = 3,
                 LastName = "Second",
                 MiddleName = "Clan",
                 FirstName = "House",
@@ -167,8 +167,8 @@ namespace webapi.Data
             };
             personRolesToSeed[1] = new PersonRole()
             {
-                PersonRoleID = 9,
-                PersonID = 28,
+                PersonRoleID = 2,
+                PersonID = 2,
                 RoleID = 3,
                 IsActive = true,
                 LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
@@ -176,8 +176,8 @@ namespace webapi.Data
             };
             personRolesToSeed[2] = new PersonRole()
             {
-                PersonRoleID = 11,
-                PersonID = 35,
+                PersonRoleID = 3,
+                PersonID = 3,
                 RoleID = 3,
                 IsActive = true,
                 LastUpdatedDate = Convert.ToDateTime(DateTime.Now),
